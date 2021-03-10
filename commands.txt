@@ -1,0 +1,82 @@
+******************************
+1. For Pseudo-Distributed mode
+******************************
+
+   A) https://hadoop.apache.org/docs/r2.7.3/hadoop-project-dist/hadoop-common/SingleCluster.html
+      Follow the document to set up a single node pseudo-distributed mode on your VM
+   
+   B) To start the Hadoop daemons
+      
+      1. hdfs -namenode format
+      2. sbin/start-dfs.sh
+      3. sbin/start-yarn.sh
+      4. sbin/mr-jobhistory-daemon.sh start historyserver
+      5. jps
+      6. If jps does not work then use following command to see all the daemons are running
+         ps -ef | grep java
+
+   C) To compile all the java file keep them in a folder(hw5) 
+       
+      javac -classpath $HADOOP_HOME/share/hadoop/common/hadoop-common-2.9.2.jar:$HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-client-core-2.9.2.jar:$HADOOP_HOME/share/hadoop/common/lib/commons-cli-1.2.jar -d ./ *.java
+
+   D) To make the jar file
+
+      jar -cvf relativefrequency.jar *.class
+   
+   E) Make a directory in HDFS
+      
+      hdfs dfs -mkdir /input
+
+
+   F) Copy 100KWikiText.txt file into /input
+      
+      hdfs dfs -put 100KWikiText.txt /input
+
+   G) Command to run the code 
+
+      hadoop jar relativefrequency.jar Word_Frequency /input/ /output
+
+   I) To check the output h
+      
+      dfs dfs -cat /output/part-r-00000
+      (Copy the data into top100.txt file)
+
+*****************************
+2. For Fully Distributed Mode
+*****************************
+
+    A) Create 2 VM (Namenode and datanode) and do passphraseless ssh between them
+ 
+    B) Configure the bash profile and config xml files for both the instances
+
+    C) To compile all the java file keep them in a folder(hw5) 
+       
+      javac -classpath $HADOOP_HOME/share/hadoop/common/hadoop-common-2.9.2.jar:$HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-client-core-2.9.2.jar:$HADOOP_HOME/share/hadoop/common/lib/commons-cli-1.2.jar -d ./ *.java
+
+    D) To make the jar file
+
+      jar -cvf relativefrequency.jar *.class
+   
+    E) Make a directory in HDFS
+      
+      hdfs dfs -mkdir /input
+
+
+    F) Copy 100KWikiText.txt file into /input
+      
+      hdfs dfs -put 100KWikiText.txt /input
+
+    G) Command to run the code 
+
+      hadoop jar relativefrequency.jar Word_Frequency /input/ /output
+
+    I) To check the output h
+      
+      dfs dfs -cat /output/part-r-00000
+      (Copy the data into top100.txt file)
+
+
+    
+
+      
+   

@@ -1,0 +1,66 @@
+
+*******************************************
+1. Input/Output format for each Hadoop task
+*******************************************
+
+   A) Mapper_class1:
+      
+      Input: key -> LongWritable, value -> Text
+      Output: key -> Adjacent_Word_class, value -> IntWritable
+    
+   B) Reducer_class1:
+
+      Input: key -> Adjacent_Word_class, value -> IntWritable
+      Output: key -> Adjacent_Word_class, value -> DoubleWritable
+
+   C) Mapper_class2:
+       
+      Input: key -> Object, value -> Adjacent_Word_class
+      Output: key -> DoubleWritable, value -> Adjacent_Word_class
+
+   D) Reducer_class2:
+
+      Input: key -> DoubleWritable, value -> Adjacent_Word_class
+      Output: key -> Adjacent_Word_class, value -> DoubleWritable
+
+**************************
+2. Hadoop Cluster Settings
+**************************
+  
+   A) Pseudo-Distributed Mode
+      
+      1. VM type : Amazon Linux 2 AMI (HVM)(64-bit(x86)), t2.medium,4GB RAM, 8GB Storage
+      2. Number of input splits(map tasks) for Job1 : 1
+      3. Number of reduce tasks for Job1 : 3
+      4. Number of input splits(map tasks) for Job2 : 3
+      5. Number of reduce tasks for Job2 : 1
+
+   B) Fully Distributed Mode
+      
+      1. Number of VM's : 2 (1 Namenode and 1 Datanode)
+      2. VM1 type : Amazon Linux 2 AMI (HVM)(64-bit(x86)), t2.large,4GB RAM, 8GB Storage
+      3. VM2 type : Amazon Linux 2 AMI (HVM)(64-bit(x86)), t2.large,8GB RAM, 8GB Storage
+      4. Number of input splits(map tasks) for Job1 : 1
+      5. Number of reduce tasks for Job1 : 3
+      6. Number of input splits(map tasks) for Job2 : 3
+      7. Number of reduce tasks for Job2 : 1
+
+*******************************************
+3. Running Time for each MapReduce Approach
+*******************************************
+
+   A) Pseudo-Distributed Mode
+
+       1. CPU execution time for Job1 : 455 secs
+       2. CPU execution time for Job2 : 28 secs
+       3. Total execution time : 8 mins  
+
+
+   B) Fully Distributed Mode
+
+
+       1. CPU execution time for Job1 : 450 secs
+       2. CPU execution time for Job2 : 20 secs
+       3. Total execution time : 7 mins 8 secs
+
+4. There are total 9 java files and one jar file (relativefrequency.jar)
